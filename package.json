@@ -1,0 +1,29 @@
+{
+  "name": "health-project",
+  "version": "1.0.0",
+  "description": "download",
+  "main": "script.js",
+  "scripts": {
+    "test": "npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imallison/health-project.git"
+  },
+  "keywords": [
+    "health"
+  ],
+  "author": "allison",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/imallison/health-project/issues"
+  },
+  "homepage": "https://github.com/imallison/health-project#index.html",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.3.2"
+  }
+}
