@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quests - BioQuest</title>
+    <link rel="stylesheet" href="style.css" />
+    <script>
+      function addQuest(event) {
+        event.preventDefault();
+
+        const questName = document.getElementById("questName").value;
+        const difficultyLevel =
+          document.getElementById("difficultyLevel").value;
+        const rewardPoints = document.getElementById("rewardPoints").value;
+
+        fetch("/add_quest", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ questName, difficultyLevel, rewardPoints }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            if (data.message === "Quest added") {
+              getQuests(); // Refresh
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+
+      function getQuests() {
+        fetch("/get_quests")
+          .then((response) => response.json())
+          .then((quests) => {
+            const questListElement = document.getElementById("questList");
+            questListElement.innerHTML = ""; // Clear current list
+            quests.forEach((quest) => {
+              const listItem = document.createElement("li");
+              listItem.textContent = `${quest.name} - Difficulty: ${quest.difficulty} - Reward: ${quest.points}`;
+              questListElement.appendChild(listItem);
+            });
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+
+      document.addEventListener("DOMContentLoaded", getQuests);
+    </script>
+  </head>
+  <body>
+    <header class="header">
+      <img src="bioquest_logo.png" alt="BioQuest Logo" class="logo" />
+      <nav class="nav">
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="quests.html">Quests</a></li>
+          <li><a href="learn">Learn</a></li>
+          <li><a href="#explorebook">Explorebook</a></li>
+          <li><a href="#customize">Customize</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main class="main-content">
+      <h1>Declare a Quest to...</h1>
+      <p>Start your journey!</p>
+      <form id="questForm" onsubmit="addQuest(event)">
+        <input
+          type="text"
+          id="questName"
+          placeholder="Enter quest name"
+          required
+        />
+        <input
+          type="text"
+          id="difficultyLevel"
+          placeholder="Difficulty level"
+          required
+        />
+        <input
+          type="number"
+          id="rewardPoints"
+          placeholder="Reward points"
+          required
+        />
+        <button type="submit">Submit</button>
+      </form>
+    </main>
+    <section class="your-quests">
+      <h2>Your Quests</h2>
+      <ul id="questList">
+        <!-- Quest items added by JS -->
+      </ul>
+    </section>
+    <footer class="footer"></footer>
+  </body>
+</html>

@@ -1,7 +1,9 @@
 # Health Project
 ## React
-- npm start
 - npm install react-scripts --save
+- npm install react-router-dom
+- cd  my-app
+- npm start
 
 ## Archive
 - npm install
