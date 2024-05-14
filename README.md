@@ -1,4 +1,4 @@
-# Health Project
+# BioQuest
 ## React
 - npm install react-scripts --save
 - npm install react-router-dom
